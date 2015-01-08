@@ -1,0 +1,6 @@
+# Bower
+/bower_components/
+
+# IntelliJ
+/.idea/
+/*.iml

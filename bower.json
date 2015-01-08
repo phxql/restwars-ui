@@ -1,0 +1,21 @@
+{
+  "name": "restwars-ui",
+  "version": "1.0.0",
+  "authors": [
+    "Moritz Kammerer <kammerer.moritz@gmail.com>"
+  ],
+  "description": "A UI for RESTwars",
+  "main": "index.html",
+  "license": "GPL3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ember": "~1.9.1"
+  }
+}
