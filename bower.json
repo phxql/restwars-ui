@@ -6,7 +6,7 @@
   ],
   "description": "A UI for RESTwars",
   "main": "index.html",
-  "license": "GPL3",
+  "license": "GPLv3",
   "private": true,
   "ignore": [
     "**/.*",
