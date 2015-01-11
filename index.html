@@ -44,15 +44,156 @@
     {{outlet}}
 </div>
 
+
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="index">
     <h1>Planets</h1>
-    <ul>
-    {{#each planet in controller.planets}}
-        <li>{{planet.location}}</li>
+    <table class="table table-striped">
+    <tr>
+        <th>Location</th>
+        <th>Crystal</th>
+        <th>Gas</th>
+        <th>Energy</th>
+    </tr>
+    {{#each planet in model.planets}}
+        <tr>
+            <td>{{#link-to 'planet.index' planet.location}}{{planet.location}}{{/link-to}}</td>
+            <td>{{planet.crystal}}</td>
+            <td>{{planet.gas}}</td>
+            <td>{{planet.energy}}</td>
+        </tr>
     {{/each}}
-    </ul>
+    </table>
+
+    <h1>Technologies</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Level</th>
+    </tr>
+    {{#each technology in model.technologies}}
+        <tr>
+            <td>{{technology.type}}</td>
+            <td>{{technology.level}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+    <h1>Events</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Round</th>
+        <th>Location</th>
+        <th>Type</th>
+    </tr>
+    {{#each event in model.events}}
+        <tr>
+            <td>{{event.round}}</td>
+            <td>{{event.location}}</td>
+            <td>{{event.type}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="planet/index">
+    <table class="table table-striped">
+    <tr>
+        <th>Location</th>
+        <th>Crystal</th>
+        <th>Gas</th>
+        <th>Energy</th>
+    </tr>
+    <tr>
+        <td>{{model.planet.location}}</td>
+        <td>{{model.planet.crystal}}</td>
+        <td>{{model.planet.gas}}</td>
+        <td>{{model.planet.energy}}</td>
+    </tr>
+    </table>
+
+    <h1>Buildings</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Level</th>
+    </tr>
+    {{#each building in model.buildings}}
+        <tr>
+            <td>{{building.type}}</td>
+            <td>{{building.level}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+    <h1>Ships</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+    </tr>
+    {{#each ship in model.ships}}
+        <tr>
+            <td>{{ship.type}}</td>
+            <td>{{ship.amount}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+    <h1>Construction sites</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Level</th>
+        <th>Started</th>
+        <th>Done</th>
+    </tr>
+    {{#each constructionSite in model.constructionSites}}
+        <tr>
+            <td>{{constructionSite.type}}</td>
+            <td>{{constructionSite.level}}</td>
+            <td>{{constructionSite.started}}</td>
+            <td>{{constructionSite.done}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+    <h1>Researches</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Level</th>
+        <th>Started</th>
+        <th>Done</th>
+    </tr>
+    {{#each research in model.researches}}
+        <tr>
+            <td>{{research.type}}</td>
+            <td>{{research.level}}</td>
+            <td>{{research.started}}</td>
+            <td>{{research.done}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+    <h1>Ships in construction</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Started</th>
+        <th>Done</th>
+    </tr>
+    {{#each shipInConstruction in model.shipsInConstruction}}
+        <tr>
+            <td>{{shipInConstruction.type}}</td>
+            <td>{{shipInConstruction.started}}</td>
+            <td>{{shipInConstruction.done}}</td>
+        </tr>
+    {{/each}}
+    </table>
 
 </script>
 
@@ -61,16 +202,6 @@
   <div class="form-group">
     <label for="server-address">Server address</label>
     {{input class='form-control' type='text' id='server-address' value=serverAddress}}
-  </div>
-
-  <div class="form-group">
-    <label for="username">Username</label>
-    {{input class='form-control' type='text' id='username' value=username}}
-  </div>
-
-  <div class="form-group">
-    <label for="password">Password</label>
-    {{input class='form-control' type='password' id='password' value=password}}
   </div>
 
   <button {{action 'login'}} class='btn btn-primary'>Login</button>
