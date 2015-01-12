@@ -143,7 +143,7 @@
     {{/each}}
     </table>
 
-    <h1>Construction sites {{#link-to 'planet.new-construction-site' model.location class='btn btn-success'}}Create new{{/link-to}} </h1>
+    <h1>Construction sites {{#link-to 'planet.new-construction-site' model.location class='btn btn-success'}}Create new{{/link-to}}</h1>
     <table class="table table-striped">
     <tr>
         <th>Type</th>
@@ -161,7 +161,7 @@
     {{/each}}
     </table>
 
-    <h1>Researches</h1>
+    <h1>Researches {{#link-to 'planet.new-research' model.location class='btn btn-success'}}Create new{{/link-to}}</h1>
     <table class="table table-striped">
     <tr>
         <th>Type</th>
@@ -205,6 +205,17 @@
     </div>
     <button {{action 'create'}} class='btn btn-primary'>Create</button>
 </form>
+</script>
+
+<script type="text/x-handlebars" data-template-name="planet/new-research">
+<form>
+    <div class="form-group">
+        <label for="type">Type</label>
+        {{view "select" content=model.technologyTypes optionValuePath='content.type' optionLabelPath='content.type' id='type' value=selectedType}}
+    </div>
+    <button {{action 'create'}} class='btn btn-primary'>Create</button>
+</form>
+
 </script>
 
 

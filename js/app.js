@@ -4,6 +4,7 @@ App.Router.map(function () {
     this.route('login');
     this.resource('planet', {path: '/planet/:location'}, function () {
         this.route('new-construction-site');
+        this.route('new-research');
     });
 });
 
@@ -116,6 +117,31 @@ App.PlanetNewConstructionSiteController = Ember.Controller.extend({
 
             var self = this;
             RESTWARS.planet.createConstructionSite(location, this.get('selectedType')).done(function () {
+                self.transitionToRoute('planet', location);
+            });
+        }
+    }
+});
+
+App.PlanetNewResearchRoute = App.NeedsLoginRoute.extend({
+    model: function () {
+        var parent = this.modelFor('planet');
+
+        return Ember.RSVP.hash({
+            location: parent.location,
+            technologyTypes: RESTWARS.metadata.technologies()
+        });
+    }
+});
+App.PlanetNewResearchController = Ember.Controller.extend({
+    selectedType: null,
+
+    actions: {
+        create: function () {
+            var location = this.get('model.location');
+
+            var self = this;
+            RESTWARS.planet.createResearch(location, this.get('selectedType')).done(function () {
                 self.transitionToRoute('planet', location);
             });
         }
