@@ -57,9 +57,9 @@
         <th>Gas</th>
         <th>Energy</th>
     </tr>
-    {{#each planet in model.planets}}
+    {{#each planet in planets}}
         <tr>
-            <td>{{#link-to 'planet.index' planet.location}}{{planet.location}}{{/link-to}}</td>
+            <td>{{#link-to 'planet' planet.location}}{{planet.location}}{{/link-to}}</td>
             <td>{{planet.crystal}}</td>
             <td>{{planet.gas}}</td>
             <td>{{planet.energy}}</td>
@@ -73,7 +73,7 @@
         <th>Type</th>
         <th>Level</th>
     </tr>
-    {{#each technology in model.technologies}}
+    {{#each technology in technologies}}
         <tr>
             <td>{{technology.type}}</td>
             <td>{{technology.level}}</td>
@@ -88,7 +88,7 @@
         <th>Location</th>
         <th>Type</th>
     </tr>
-    {{#each event in model.events}}
+    {{#each event in events}}
         <tr>
             <td>{{event.round}}</td>
             <td>{{event.location}}</td>
@@ -108,10 +108,10 @@
         <th>Energy</th>
     </tr>
     <tr>
-        <td>{{model.planet.location}}</td>
-        <td>{{model.planet.crystal}}</td>
-        <td>{{model.planet.gas}}</td>
-        <td>{{model.planet.energy}}</td>
+        <td>{{planet.location}}</td>
+        <td>{{planet.crystal}}</td>
+        <td>{{planet.gas}}</td>
+        <td>{{planet.energy}}</td>
     </tr>
     </table>
 
@@ -121,7 +121,7 @@
         <th>Type</th>
         <th>Level</th>
     </tr>
-    {{#each building in model.buildings}}
+    {{#each building in buildings}}
         <tr>
             <td>{{building.type}}</td>
             <td>{{building.level}}</td>
@@ -135,7 +135,7 @@
         <th>Type</th>
         <th>Amount</th>
     </tr>
-    {{#each ship in model.ships}}
+    {{#each ship in ships}}
         <tr>
             <td>{{ship.type}}</td>
             <td>{{ship.amount}}</td>
@@ -143,7 +143,7 @@
     {{/each}}
     </table>
 
-    <h1>Construction sites</h1>
+    <h1>Construction sites {{#link-to 'planet.new-construction-site' class='btn btn-success'}}Create new{{/link-to}} </h1>
     <table class="table table-striped">
     <tr>
         <th>Type</th>
@@ -151,7 +151,7 @@
         <th>Started</th>
         <th>Done</th>
     </tr>
-    {{#each constructionSite in model.constructionSites}}
+    {{#each constructionSite in constructionSites}}
         <tr>
             <td>{{constructionSite.type}}</td>
             <td>{{constructionSite.level}}</td>
@@ -169,7 +169,7 @@
         <th>Started</th>
         <th>Done</th>
     </tr>
-    {{#each research in model.researches}}
+    {{#each research in researches}}
         <tr>
             <td>{{research.type}}</td>
             <td>{{research.level}}</td>
@@ -186,7 +186,7 @@
         <th>Started</th>
         <th>Done</th>
     </tr>
-    {{#each shipInConstruction in model.shipsInConstruction}}
+    {{#each shipInConstruction in shipsInConstruction}}
         <tr>
             <td>{{shipInConstruction.type}}</td>
             <td>{{shipInConstruction.started}}</td>
@@ -196,6 +196,17 @@
     </table>
 
 </script>
+
+<script type="text/x-handlebars" data-template-name="planet/new-construction-site">
+<form>
+    <div class="form-group">
+        <label for="type">Type</label>
+        {{view "select" content=types optionValuePath='content.type' optionLabelPath='content.type' id='type' value=selectedType}}
+    </div>
+    <button {{action 'create'}} class='btn btn-primary'>Create</button>
+</form>
+</script>
+
 
 <script type="text/x-handlebars" data-template-name="login">
 <form>
