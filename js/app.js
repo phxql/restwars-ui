@@ -7,21 +7,24 @@ App.Router.map(function () {
     });
 });
 
+App.ApplicationRoute = Ember.Route.extend({
+    model: function () {
+        return {
+            loggedIn: false
+        }
+    }
+});
 App.ApplicationController = Ember.Controller.extend({
-    /**
-     * The current logged in user.
-     */
-    loggedIn: false
 });
 
 /**
  * A route which ensures the user is logged in. If the user isn't logged in, a transition to the login page will take place.
  */
 App.NeedsLoginRoute = Ember.Route.extend({
-    activate: function () {
+    beforeModel: function () {
         this._super();
-        //var controller = this.controllerFor('application');
-        //if (!controller.get('loggedIn')) {
+        //var model = this.modelFor('application');
+        //if (!model.loggedIn) {
         //    this.transitionTo('login');
         //}
 
@@ -30,11 +33,11 @@ App.NeedsLoginRoute = Ember.Route.extend({
 });
 
 App.LoginRoute = Ember.Route.extend({
-    activate: function () {
+    beforeModel: function () {
         this._super();
         // Redirect to index page if the user is already logged in.
-        var controller = this.controllerFor('application');
-        if (controller.get('loggedIn')) {
+        var model = this.modelFor('application');
+        if (model.loggedIn) {
             this.transitionTo('index');
         }
     }
@@ -48,7 +51,9 @@ App.LoginController = Ember.Controller.extend({
             RESTWARS.init(this.get('serverAddress'));
             var that = this;
             RESTWARS.player.me().done(function () {
-                that.set('controllers.application.loggedIn', true);
+                var controller = that.controllerFor('application');
+                //var model = that.modelFor('application');
+                controller.model.loggedIn = true;
                 that.transitionToRoute('index');
             });
         }
@@ -56,97 +61,58 @@ App.LoginController = Ember.Controller.extend({
 });
 
 App.IndexRoute = App.NeedsLoginRoute.extend({
-    setupController: function (controller, model) {
-        controller.setup(model);
+    model: function () {
+        return Ember.RSVP.hash({
+            planets: RESTWARS.planet.planets(),
+            events: RESTWARS.event.events(),
+            technologies: RESTWARS.technology.technologies()
+        });
     }
 });
-App.IndexController = Ember.Controller.extend({
-    planets: [],
-    events: [],
-    technologies: [],
+App.IndexController = Ember.Controller.extend({});
 
-    setup: function (model) {
-        var self = this;
-
-        RESTWARS.planet.planets().done(function (data) {
-            self.set('planets', data)
-        });
-        RESTWARS.event.events().done(function (data) {
-            self.set('events', data)
-        });
-        RESTWARS.technology.technologies().done(function (data) {
-            self.set('technologies', data)
-        });
+App.PlanetRoute = App.NeedsLoginRoute.extend({
+    model: function (params) {
+        return {
+            location: params.location
+        }
     }
 });
 
 App.PlanetIndexRoute = App.NeedsLoginRoute.extend({
     model: function () {
-        return this.modelFor('planet');
-    },
-    setupController: function (controller, model) {
-        controller.setup(model);
-    }
-});
+        var parent = this.modelFor('planet');
+        var location = parent.location;
 
-App.PlanetIndexController = Ember.Controller.extend({
-    planet: null,
-    buildings: [],
-    ships: [],
-    constructionSites: [],
-    researches: [],
-    shipsInConstruction: [],
-
-    setup: function (model) {
-        var self = this;
-        var location = model.location;
-
-        RESTWARS.planet.planet(location).done(function (data) {
-            self.set('planet', data)
-        });
-        RESTWARS.planet.buildings(location).done(function (data) {
-            self.set('buildings', data)
-        });
-        RESTWARS.planet.ships(location).done(function (data) {
-            self.set('ships', data)
-        });
-        RESTWARS.planet.constructionSites(location).done(function (data) {
-            self.set('constructionSites', data)
-        });
-        RESTWARS.planet.researches(location).done(function (data) {
-            self.set('researches', data)
-        });
-        RESTWARS.planet.shipsInConstruction(location).done(function (data) {
-            self.set('shipsInConstruction', data)
+        return Ember.RSVP.hash({
+            location: location,
+            planet: RESTWARS.planet.planet(location),
+            buildings: RESTWARS.planet.buildings(location),
+            ships: RESTWARS.planet.ships(location),
+            constructionSites: RESTWARS.planet.constructionSites(location),
+            researches: RESTWARS.planet.researches(location),
+            shipsInConstruction: RESTWARS.planet.shipsInConstruction(location)
         });
     }
 });
+App.PlanetIndexController = Ember.Controller.extend({});
 
 App.PlanetNewConstructionSiteRoute = App.NeedsLoginRoute.extend({
     model: function () {
-        return this.modelFor('planet');
-    },
-    setupController: function (controller, model) {
-        controller.setup(model);
+        var parent = this.modelFor('planet');
+
+        return Ember.RSVP.hash({
+            location: parent.location,
+            buildingTypes: RESTWARS.metadata.buildings()
+        });
     }
 });
-
 App.PlanetNewConstructionSiteController = Ember.Controller.extend({
-    location: null,
-    types: [],
     selectedType: null,
 
-    setup: function (model) {
-        this.set('location', model.location);
-
-        var self = this;
-        RESTWARS.metadata.buildings().done(function (data) {
-            self.set('types', data);
-        });
-    },
     actions: {
         create: function () {
-            var location = this.get('location');
+            var location = this.get('model.location');
 
             var self = this;
             RESTWARS.planet.createConstructionSite(location, this.get('selectedType')).done(function () {
