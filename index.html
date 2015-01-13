@@ -179,7 +179,7 @@
     {{/each}}
     </table>
 
-    <h1>Ships in construction</h1>
+    <h1>Ships in construction {{#link-to 'planet.new-ship-in-construction' model.location class='btn btn-success'}}Create new{{/link-to}}</h1>
     <table class="table table-striped">
     <tr>
         <th>Type</th>
@@ -223,9 +223,22 @@
     </div>
     <button {{action 'create'}} class='btn btn-primary'>Create</button>
 </form>
-
 </script>
 
+<script type="text/x-handlebars" data-template-name="planet/new-ship-in-construction">
+{{#if error}}
+<div class="alert alert-danger" role="alert">Request failed: {{error}}</div>
+{{/if}}
+
+<form>
+    <div class="form-group">
+        <label for="type">Type</label>
+        {{view "select" content=model.shipTypes optionValuePath='content.type' optionLabelPath='content.type' id='type' value=selectedType}}
+    </div>
+    <button {{action 'create'}} class='btn btn-primary'>Create</button>
+</form>
+
+</script>
 
 <script type="text/x-handlebars" data-template-name="login">
 <form>
@@ -236,7 +249,6 @@
 
   <button {{action 'login'}} class='btn btn-primary'>Login</button>
 </form>
-
 </script>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
