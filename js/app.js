@@ -50,12 +50,10 @@ App.LoginController = Ember.Controller.extend({
     actions: {
         login: function () {
             RESTWARS.init(this.get('serverAddress'));
-            var that = this;
+            var self = this;
             RESTWARS.player.me().done(function () {
-                var controller = that.controllerFor('application');
-                //var model = that.modelFor('application');
-                controller.model.loggedIn = true;
-                that.transitionToRoute('index');
+                self.set('controllers.application.model.loggedIn', true);
+                self.transitionToRoute('index');
             });
         }
     }
@@ -110,6 +108,7 @@ App.PlanetNewConstructionSiteRoute = App.NeedsLoginRoute.extend({
 });
 App.PlanetNewConstructionSiteController = Ember.Controller.extend({
     selectedType: null,
+    error: null,
 
     actions: {
         create: function () {
@@ -118,6 +117,8 @@ App.PlanetNewConstructionSiteController = Ember.Controller.extend({
             var self = this;
             RESTWARS.planet.createConstructionSite(location, this.get('selectedType')).done(function () {
                 self.transitionToRoute('planet', location);
+            }).fail(function (jqXHR) {
+                self.set('error', jqXHR.responseText);
             });
         }
     }
@@ -135,6 +136,7 @@ App.PlanetNewResearchRoute = App.NeedsLoginRoute.extend({
 });
 App.PlanetNewResearchController = Ember.Controller.extend({
     selectedType: null,
+    error: null,
 
     actions: {
         create: function () {
@@ -143,6 +145,8 @@ App.PlanetNewResearchController = Ember.Controller.extend({
             var self = this;
             RESTWARS.planet.createResearch(location, this.get('selectedType')).done(function () {
                 self.transitionToRoute('planet', location);
+            }).fail(function (jqXHR) {
+                self.set('error', jqXHR.responseText);
             });
         }
     }

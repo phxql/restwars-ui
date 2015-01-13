@@ -198,6 +198,10 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/new-construction-site">
+{{#if error}}
+<div class="alert alert-danger" role="alert">Request failed: {{error}}</div>
+{{/if}}
+
 <form>
     <div class="form-group">
         <label for="type">Type</label>
@@ -208,6 +212,10 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/new-research">
+{{#if error}}
+<div class="alert alert-danger" role="alert">Request failed: {{error}}</div>
+{{/if}}
+
 <form>
     <div class="form-group">
         <label for="type">Type</label>
