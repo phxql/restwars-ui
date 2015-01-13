@@ -6,6 +6,7 @@ App.Router.map(function () {
         this.route('new-construction-site');
         this.route('new-research');
         this.route('new-ship-in-construction');
+        this.route('new-flight');
     });
 });
 
@@ -173,6 +174,40 @@ App.PlanetNewShipInConstructionController = Ember.Controller.extend({
 
             var self = this;
             RESTWARS.planet.createShipInConstruction(location, this.get('selectedType')).done(function () {
+                self.transitionToRoute('planet', location);
+            }).fail(function (jqXHR) {
+                self.set('error', jqXHR.responseText);
+            });
+        }
+    }
+});
+
+App.PlanetNewFlightRoute = App.NeedsLoginRoute.extend({
+    model: function () {
+        var parent = this.modelFor('planet');
+        var location = parent.location;
+
+        return Ember.RSVP.hash({
+            location: location,
+            ships: RESTWARS.planet.ships(location),
+            flightTypes: RESTWARS.metadata.flightTypes()
+        });
+    }
+});
+
+App.PlanetNewFlightController = Ember.Controller.extend({
+    destination: null,
+    selectedType: null,
+    error: null,
+
+    actions: {
+        create: function () {
+            var location = this.get('model.location');
+
+            var self = this;
+            var ships = this.get('model.ships');
+
+            RESTWARS.planet.createFlight(location, this.get('destination'), this.get('selectedType'), ships).done(function () {
                 self.transitionToRoute('planet', location);
             }).fail(function (jqXHR) {
                 self.set('error', jqXHR.responseText);
