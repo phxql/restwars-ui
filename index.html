@@ -289,11 +289,20 @@
 <form {{action 'create' on='submit'}}>
   <div class="form-group">
     <label for="destination">Destination</label>
-    {{input class='form-control' type='text' id='destination' value=destination}}
+    {{input class='form-control' type='text' id='destination' value=destination required=true}}
   </div>
   <div class="form-group">
     <label for="type">Type</label>
     {{view "select" content=model.flightTypes optionValuePath='content.type' optionLabelPath='content.type' id='type' value=selectedType}}
+  </div>
+
+  <div class="form-group">
+    <label for="crystals">Crystals</label>
+    {{input class='form-control' type='number' min=0 id='crystals' value=crystals}}
+  </div>
+  <div class="form-group">
+    <label for="gas">Gas</label>
+    {{input class='form-control' type='number' min=0 id='gas' value=gas}}
   </div>
 
   {{#each ship in model.ships}}

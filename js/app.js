@@ -203,6 +203,8 @@ App.PlanetNewFlightRoute = App.NeedsLoginRoute.extend({
 App.PlanetNewFlightController = Ember.Controller.extend({
     destination: null,
     selectedType: null,
+    crystals: 0,
+    gas: 0,
     error: null,
 
     actions: {
@@ -212,7 +214,7 @@ App.PlanetNewFlightController = Ember.Controller.extend({
             var self = this;
             var ships = this.get('model.ships');
 
-            RESTWARS.planet.createFlight(location, this.get('destination'), this.get('selectedType'), ships).done(function () {
+            RESTWARS.planet.createFlight(location, this.get('destination'), this.get('selectedType'), ships, this.get('crystals'), this.get('gas')).done(function () {
                 self.transitionToRoute('planet', location);
             }).fail(function (jqXHR) {
                 self.set('error', jqXHR.responseText);
