@@ -7,6 +7,7 @@ App.Router.map(function () {
         this.route('new-research');
         this.route('new-ship-in-construction');
         this.route('new-flight');
+        this.route('telescope-scan');
     });
 });
 
@@ -220,5 +221,17 @@ App.PlanetNewFlightController = Ember.Controller.extend({
                 self.set('error', jqXHR.responseText);
             });
         }
+    }
+});
+
+App.PlanetTelescopeScanRoute = App.NeedsLoginRoute.extend({
+    model: function () {
+        var parent = this.modelFor('planet');
+        var location = parent.location;
+
+        return Ember.RSVP.hash({
+            location: location,
+            result: RESTWARS.planet.telescopScan(location)
+        });
     }
 });

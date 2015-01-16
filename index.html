@@ -108,6 +108,10 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/index">
+    <h1>Actions</h1>
+    {{#link-to 'planet.telescope-scan' model.location class='btn btn-success'}}Telescope scan{{/link-to}}
+
+    <h1>Resources</h1>
     <table class="table table-striped">
     <tr>
         <th>Location</th>
@@ -314,6 +318,23 @@
 
   <button type="submit" class="btn btn-primary">Create</button>
 </form>
+</script>
+
+<script type="text/x-handlebars" data-template-name="planet/telescope-scan">
+    <table class="table table-striped">
+    <tr>
+        <th>Location</th>
+        <th>Owner</th>
+    </tr>
+    {{#each result in model.result}}
+        <tr>
+            <td>{{result.location}}</td>
+            <td>{{result.owner}}</td>
+        </tr>
+    {{/each}}
+
+    {{#link-to 'planet.index' model.location class='btn btn-default'}}Back{{/link-to}}
+
 </script>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
