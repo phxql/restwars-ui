@@ -9,6 +9,7 @@ App.Router.map(function () {
         this.route('new-flight');
         this.route('telescope-scan');
     });
+    this.route('fight', {path: '/fight/:fight'});
 });
 
 App.ApplicationRoute = Ember.Route.extend({
@@ -71,7 +72,8 @@ App.IndexRoute = App.NeedsLoginRoute.extend({
                     return e2.round - e1.round;
                 });
             }),
-            technologies: RESTWARS.technology.technologies()
+            technologies: RESTWARS.technology.technologies(),
+            fights: RESTWARS.fight.fights()
         });
     }
 });
@@ -231,7 +233,9 @@ App.PlanetTelescopeScanRoute = App.NeedsLoginRoute.extend({
 
         return Ember.RSVP.hash({
             location: location,
-            result: RESTWARS.planet.telescopScan(location)
+            result: RESTWARS.planet.telescopeScan(location)
         });
     }
 });
+
+App.FightRoute = App.NeedsLoginRoute.extend({});

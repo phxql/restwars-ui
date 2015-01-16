@@ -43,6 +43,7 @@
 <div class="container">
     {{outlet}}
 </div>
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="login">
@@ -54,6 +55,7 @@
 
   <button {{action 'login'}} class='btn btn-primary'>Login</button>
 </form>
+
 
 </script>
 
@@ -90,6 +92,25 @@
     {{/each}}
     </table>
 
+    <h1>Fights</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Location</th>
+        <th>Attacker</th>
+        <th>Defender</th>
+        <th></th>
+    </tr>
+    {{#each fight in model.fights}}
+        <tr>
+            <td>{{fight.location}}</td>
+            <td>{{fight.attacker}}</td>
+            <td>{{fight.defender}}</td>
+            <td>{{#link-to 'fight' fight class='btn btn-default'}}Details{{/link-to}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+
     <h1>Events</h1>
     <table class="table table-striped">
     <tr>
@@ -105,6 +126,7 @@
         </tr>
     {{/each}}
     </table>
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/index">
@@ -240,6 +262,7 @@
         </tr>
     {{/each}}
     </table>
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/new-construction-site">
@@ -255,6 +278,7 @@
     <button {{action 'create'}} class='btn btn-primary'>Create</button>
 </form>
 
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/new-research">
@@ -269,6 +293,7 @@
     </div>
     <button {{action 'create'}} class='btn btn-primary'>Create</button>
 </form>
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/new-ship-in-construction">
@@ -283,6 +308,7 @@
     </div>
     <button {{action 'create'}} class='btn btn-primary'>Create</button>
 </form>
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/new-flight">
@@ -318,6 +344,7 @@
 
   <button type="submit" class="btn btn-primary">Create</button>
 </form>
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="planet/telescope-scan">
@@ -334,6 +361,67 @@
     {{/each}}
 
     {{#link-to 'planet.index' model.location class='btn btn-default'}}Back{{/link-to}}
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="fight">
+    <h1>Attacking ships</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+    </tr>
+    {{#each ship in model.attackerShips}}
+    <tr>
+        <td>{{ship.type}}</td>
+        <td>{{ship.amount}}</td>
+    </tr>
+    {{/each}}
+    </table>
+
+    <h1>Defending ships</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+    </tr>
+    {{#each ship in model.defenderShips}}
+    <tr>
+        <td>{{ship.type}}</td>
+        <td>{{ship.amount}}</td>
+    </tr>
+    {{/each}}
+    </table>
+
+    <h1>Remaining attacking ships</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+    </tr>
+    {{#each ship in model.remainingAttackerShips}}
+    <tr>
+        <td>{{ship.type}}</td>
+        <td>{{ship.amount}}</td>
+    </tr>
+    {{/each}}
+    </table>
+
+    <h1>Remaining defending ships</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+    </tr>
+    {{#each ship in model.remainingDefenderShips}}
+    <tr>
+        <td>{{ship.type}}</td>
+        <td>{{ship.amount}}</td>
+    </tr>
+    {{/each}}
+    </table>
+
+    {{#link-to 'index' class='btn btn-default'}}Back{{/link-to}}
 
 </script>
 
