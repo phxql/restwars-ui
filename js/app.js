@@ -9,7 +9,7 @@ App.Router.map(function () {
         this.route('new-flight');
         this.route('telescope-scan');
     });
-    this.route('fight', {path: '/fight/:fight'});
+    this.route('fight', {path: '/fight/:fight_id'});
 });
 
 App.ApplicationRoute = Ember.Route.extend({
@@ -238,4 +238,8 @@ App.PlanetTelescopeScanRoute = App.NeedsLoginRoute.extend({
     }
 });
 
-App.FightRoute = App.NeedsLoginRoute.extend({});
+App.FightRoute = App.NeedsLoginRoute.extend({
+    model: function (params) {
+        return RESTWARS.fight.withId(params.fight_id);
+    }
+});
