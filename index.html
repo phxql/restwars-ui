@@ -421,6 +421,18 @@
     {{/each}}
     </table>
 
+    <h1>Loot</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Crystal</th>
+        <th>Gas</th>
+    </tr>
+    <tr>
+        <td>{{model.loot.crystal}}</td>
+        <td>{{model.loot.gas}}</td>
+    </tr>
+    </table>
+
     {{#link-to 'index' class='btn btn-default'}}Back{{/link-to}}
 
 </script>
