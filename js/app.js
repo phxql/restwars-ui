@@ -96,7 +96,8 @@ App.PlanetIndexRoute = App.NeedsLoginRoute.extend({
             ships: RESTWARS.planet.ships(location),
             constructionSites: RESTWARS.planet.constructionSites(location),
             researches: RESTWARS.planet.researches(location),
-            shipsInConstruction: RESTWARS.planet.shipsInConstruction(location)
+            shipsInConstruction: RESTWARS.planet.shipsInConstruction(location),
+            flights: RESTWARS.planet.ownFlights(location)
         });
     }
 });

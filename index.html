@@ -137,7 +137,7 @@
     {{/each}}
     </table>
 
-    <h1>Ships {{#link-to 'planet.new-flight' model.location class='btn btn-success'}}Create new flight{{/link-to}}</h1>
+    <h1>Ships</h1>
     <table class="table table-striped">
     <tr>
         <th>Type</th>
@@ -199,6 +199,40 @@
             <td>{{shipInConstruction.type}}</td>
             <td>{{shipInConstruction.started}}</td>
             <td>{{shipInConstruction.done}}</td>
+        </tr>
+    {{/each}}
+    </table>
+
+    <h1>Flights {{#link-to 'planet.new-flight' model.location class='btn btn-success'}}Create new{{/link-to}}</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Destination</th>
+        <th>Started</th>
+        <th>Arrival</th>
+        <th>Type</th>
+        <th>Direction</th>
+        <th>Ships</th>
+    </tr>
+    {{#each flight in model.flights}}
+        <tr>
+            <td>{{flight.destination}}</td>
+            <td>{{flight.startedInRound}}</td>
+            <td>{{flight.arrivalInRound}}</td>
+            <td>{{flight.type}}</td>
+            <td>{{flight.direction}}</td>
+            <td>
+                <table class="table table-striped">
+                <tr>
+                    <th>Type</th>
+                    <th>Amount</th>
+                </tr>
+                {{#each ship in flight.ships}}
+                <tr>
+                    <td>{{ship.type}}</td>
+                    <td>{{ship.amount}}</td>
+                </tr>
+                {{/each}}
+            </td>
         </tr>
     {{/each}}
     </table>
