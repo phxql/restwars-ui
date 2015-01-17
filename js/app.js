@@ -73,7 +73,8 @@ App.IndexRoute = App.NeedsLoginRoute.extend({
                 });
             }),
             technologies: RESTWARS.technology.technologies(),
-            fights: RESTWARS.fight.fights()
+            fights: RESTWARS.fight.fights(),
+            flights: RESTWARS.flight.own()
         });
     }
 });
