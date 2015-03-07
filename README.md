@@ -3,7 +3,7 @@
 A UI for [RESTWars](https://github.com/phxql/restwars).
 
 ## Installation
-* Install [nodejs](http://nodejs.org/)
+* Install [npm](https://www.npmjs.com/)
 * Install [Bower](http://bower.io/#install-bower)
 * Run `bower install` in the RESTwars UI directory
 * Open `index.html` in your browser
