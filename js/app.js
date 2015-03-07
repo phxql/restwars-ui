@@ -67,7 +67,7 @@ App.IndexRoute = App.NeedsLoginRoute.extend({
     model: function () {
         return Ember.RSVP.hash({
             planets: RESTWARS.planet.planets(),
-            events: RESTWARS.event.events().then(function (events) {
+            events: RESTWARS.event.events(1, 20).then(function (events) {
                 return events.data.sort(function (e1, e2) {
                     return e2.round - e1.round;
                 });
