@@ -67,6 +67,7 @@
         <th>Crystal</th>
         <th>Gas</th>
         <th>Energy</th>
+        <th>Colonized in round</th>
     </tr>
     {{#each planet in model.planets.data}}
         <tr>
@@ -74,6 +75,7 @@
             <td>{{planet.crystal}}</td>
             <td>{{planet.gas}}</td>
             <td>{{planet.energy}}</td>
+            <td>{{planet.colonizedInRound}}</td>
         </tr>
     {{/each}}
     </table>
@@ -177,12 +179,14 @@
         <th>Crystal</th>
         <th>Gas</th>
         <th>Energy</th>
+        <th>Colonized in round</th>
     </tr>
     <tr>
         <td>{{model.planet.location}}</td>
         <td>{{model.planet.crystal}}</td>
         <td>{{model.planet.gas}}</td>
         <td>{{model.planet.energy}}</td>
+        <td>{{model.planet.colonizedInRound}}</td>
     </tr>
     </table>
 
